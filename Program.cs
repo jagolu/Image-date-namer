@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿try
+{
+    ImageDater.IDApp.IAapplication app = new ImageDater.IDApp.IAapplication();
+    app.run();
+}catch (Exception ex)
+{
+    Console.Error.WriteLine(ex.Message);
+}
