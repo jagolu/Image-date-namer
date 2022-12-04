@@ -20,8 +20,7 @@ namespace ImageDater.IDApp
         {
             getMode();
             string path = getPath();
-            List<FileData> files = getFilesFromDirectory(path);
-
+            List<FileData> files = isDirectoryModeSelected() ? getFilesFromDirectory(path) : getFileDataFromFile(path);
 
         }
 
@@ -61,6 +60,14 @@ namespace ImageDater.IDApp
             return filesData;
         }
 
+        private List<FileData> getFileDataFromFile(string filePath)
+        {
+            List<FileData> filesData = new List<FileData>();
+
+            filesData.Add(_fileManager.getFileDataInfo(filePath));
+
+            return filesData;
+        }
         private bool isDirectoryModeSelected()
         {
             return _mode == PathMode.DIRECTORY_MODE;
