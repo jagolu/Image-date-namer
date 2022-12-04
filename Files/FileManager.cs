@@ -23,6 +23,32 @@
             };
         }
 
+        private string getFileFolderPath(string filePath)
+        {
+            String fullPath = Path.GetFullPath(filePath);
+            String fileName = Path.GetFileName(filePath);
+            return fullPath.Substring(0, fullPath.IndexOf(fileName));
+        }
+
+        public string getValidModifiedFolderPath(string path, bool isDirectoryMode)
+        {
+            string newPath = (isDirectoryMode ? path : getFileFolderPath(path))+ "//modified";
+            int modifier = 0;
+            while (Directory.Exists(newPath + (modifier == 0 ? String.Empty : modifier.ToString())))
+            {
+                modifier++;
+            }
+
+            newPath += (modifier == 0 ? String.Empty : modifier.ToString());
+
+            return newPath;
+        }
+
+        public void createNewDirectory(string newDirectoryPath)
+        {
+            Directory.CreateDirectory(newDirectoryPath);    
+        }
+
         private List<DateTime> getDates(string filePath)
         {
             List<DateTime> dates = new List<DateTime>();

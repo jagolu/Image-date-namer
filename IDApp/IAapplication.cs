@@ -21,6 +21,7 @@ namespace ImageDater.IDApp
             getMode();
             string path = getPath();
             List<FileData> files = isDirectoryModeSelected() ? getFilesFromDirectory(path) : getFileDataFromFile(path);
+            string modifiedFolderPath = createModifiedFolder(path);
 
         }
 
@@ -68,6 +69,16 @@ namespace ImageDater.IDApp
 
             return filesData;
         }
+
+        private string createModifiedFolder(string path)
+        {
+            string newPath = _fileManager.getValidModifiedFolderPath(path, isDirectoryModeSelected());
+            _lineWriter.creatingNewDirectory(newPath);
+            _fileManager.createNewDirectory(newPath);  
+
+            return newPath;
+        }
+
         private bool isDirectoryModeSelected()
         {
             return _mode == PathMode.DIRECTORY_MODE;

@@ -39,5 +39,10 @@
             Console.WriteLine(MessageDictionary.Instance.getMessage(
                 isDirectory ? MessageInfoType.PATH_TRY_AGAIN_DIRECTORY : MessageInfoType.PATH_TRY_AGAIN_FILE));
         }
+
+        public void creatingNewDirectory(string directoryPath)
+        {
+            Console.WriteLine(MessageDictionary.Instance.getMessage(MessageInfoType.CREATING_NEW_PATH) + directoryPath);
+        }
     }
 }
