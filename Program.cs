@@ -4,5 +4,6 @@
     app.run();
 }catch (Exception ex)
 {
-    Console.Error.WriteLine(ex.Message);
+    Console.Error.WriteLine("Error-->" + ex.Message);
+    Console.Read();
 }
