@@ -40,6 +40,24 @@
             String newName = getNewName(file);
             return validateFileName(newFolderPath + newName);
         }
+        public string getNewPathFromName(String filePath, string newFolderPath, PathNameBehavior behaviour = PathNameBehavior.DATE_AND_HOUR)
+        {
+            string name = Path.GetFileNameWithoutExtension(filePath);
+            string ext = Path.GetExtension(filePath);
+
+            switch (behaviour)
+            {
+                case PathNameBehavior.DATE_AND_HOUR:
+                    name = name.Substring(0, 10);
+                    name = name.Replace("-", String.Empty);
+                    break;
+                case PathNameBehavior.IMG_DATE:
+                    name = name.Substring(4, 8);
+                    break;
+            }
+
+            return validateFileName($"{newFolderPath}{name}{ext}");
+        }
 
         public void renameFileInNewPath(string oldFolderPath, string newFolderPath)
         {

@@ -25,6 +25,16 @@ namespace ImageDater.IDApp
             renamingFiles(files, modifiedFolderPath);
         }
 
+        public void run2(PathNameBehavior behavior)
+        {
+            getMode();
+            string path = getPath();
+            List<String> files = (isDirectoryModeSelected() ? getFilesFromDirectory(path) : getFileDataFromFile(path)).
+                Select(x => x.Path).ToList();
+            string modifiedFolderPath = createModifiedFolder(path);
+            renamingFilesFromName(files, modifiedFolderPath, behavior);
+        }
+
         private void getMode()
         {
             _mode = PathMode.DEFAULT;
@@ -86,6 +96,17 @@ namespace ImageDater.IDApp
                 string newPath = _fileManager.getNewPath(f, newFolderPath);
                 _lineWriter.renameFile(f.Path, newPath);
                 _fileManager.renameFileInNewPath(f.Path, newPath);
+            });
+        }
+
+        private void renamingFilesFromName(List<string> pathFiles, string newFolderPath, PathNameBehavior behavior)
+        {
+            pathFiles.ForEach(f =>
+            {
+                string newPath = _fileManager.getNewPathFromName(f, newFolderPath, behavior);
+                _lineWriter.renameFile(f, newPath);
+
+                _fileManager.renameFileInNewPath(f, newPath);
             });
         }
 
