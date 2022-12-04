@@ -24,5 +24,20 @@
 
             return answer.Equals(yes);  
         }
+
+        public string getPathMessage(bool isDirectory = true)
+        {
+            Console.WriteLine(MessageDictionary.Instance.getMessage(
+                isDirectory ? MessageInfoType.DIRECTORY_PATH : MessageInfoType.IMAGE_PATH));
+
+            return Console.ReadLine() ?? String.Empty;
+        }
+
+        public void wrongPathMessage(bool isDirectory = true)
+        {
+            Console.WriteLine(MessageDictionary.Instance.getMessage(MessageInfoType.WRONG_PATH));
+            Console.WriteLine(MessageDictionary.Instance.getMessage(
+                isDirectory ? MessageInfoType.PATH_TRY_AGAIN_DIRECTORY : MessageInfoType.PATH_TRY_AGAIN_FILE));
+        }
     }
 }

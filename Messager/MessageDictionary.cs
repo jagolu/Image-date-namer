@@ -27,10 +27,15 @@
         private void Initialize()
         {
             _messages.Add(MessageInfoType.DONT_UNDERSTAND, "Sorry, I don't understand.");
+            _messages.Add(MessageInfoType.DIRECTORY_PATH, "Directory path: ");
+            _messages.Add(MessageInfoType.IMAGE_PATH, "Image path: ");
             _messages.Add(MessageInfoType.YES, "Y");
             _messages.Add(MessageInfoType.NO, "N");
             _messages.Add(MessageInfoType.MODE_QUESTION, "Use Directory mode? ("+
                 _messages[MessageInfoType.YES]+"/"+ _messages[MessageInfoType.NO] + "): ");
+            _messages.Add(MessageInfoType.WRONG_PATH, "Wrong path");
+            _messages.Add(MessageInfoType.PATH_TRY_AGAIN_DIRECTORY, "Enter a path to a valid directory");
+            _messages.Add(MessageInfoType.PATH_TRY_AGAIN_FILE, "Enter a path to a valid file");
         }
     }
 }

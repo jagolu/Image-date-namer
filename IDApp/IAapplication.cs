@@ -19,6 +19,7 @@ namespace ImageDater.IDApp
         public void run()
         {
             getMode();
+            string path = getPath();
         }
 
         private void getMode()
@@ -27,6 +28,24 @@ namespace ImageDater.IDApp
 
             bool isDirectoryMode = _lineWriter.isDirectoryMode();
             _mode = isDirectoryMode ? PathMode.DIRECTORY_MODE : PathMode.FILE_MODE;
+        }
+
+        private string getPath()
+        {
+            string path;
+            bool correctPath;
+            bool isDirectory = isDirectoryModeSelected();
+
+            do
+            {
+                path = _lineWriter.getPathMessage(isDirectory);
+                correctPath = _fileManager.existPath(path, isDirectory);
+
+                if (!correctPath) _lineWriter.wrongPathMessage(isDirectory);
+
+            } while (!correctPath);
+
+            return path;
         }
         private bool isDirectoryModeSelected()
         {
