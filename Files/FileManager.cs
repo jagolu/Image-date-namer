@@ -23,6 +23,29 @@
             };
         }
 
+        public string getValidModifiedFolderPath(string path, bool isDirectoryMode)
+        {
+            string newPath = (isDirectoryMode ? path : getFileFolderPath(path))+ "\\modified";
+
+            return validateDirectoryName(newPath);
+        }
+
+        public void createNewDirectory(string newDirectoryPath)
+        {
+            Directory.CreateDirectory(newDirectoryPath);    
+        }
+
+        public string getNewPath(FileData file, string newFolderPath)
+        {
+            String newName = getNewName(file);
+            return validateFileName(newFolderPath + newName);
+        }
+
+        public void renameFileInNewPath(string oldFolderPath, string newFolderPath)
+        {
+            File.Copy(oldFolderPath, newFolderPath);
+        }
+
         private string getFileFolderPath(string filePath)
         {
             String fullPath = Path.GetFullPath(filePath);
@@ -30,23 +53,41 @@
             return fullPath.Substring(0, fullPath.IndexOf(fileName));
         }
 
-        public string getValidModifiedFolderPath(string path, bool isDirectoryMode)
+        private string getNewName(FileData f)
         {
-            string newPath = (isDirectoryMode ? path : getFileFolderPath(path))+ "//modified";
+            DateTime d = f.Dates.OrderBy(d => d).ToList().First();
+            return d.Year.ToString() + getValidNumberString(d.Month) + getValidNumberString(d.Day) + f.extension;
+        }
+
+        private string getValidNumberString(int n)
+        {
+            return n < 10 ? "0" + n.ToString() : n.ToString();
+        }
+
+        private string validateDirectoryName(string path)
+        {
             int modifier = 0;
-            while (Directory.Exists(newPath + (modifier == 0 ? String.Empty : modifier.ToString())))
+            while (Directory.Exists(path + (modifier == 0 ? String.Empty : "_" + modifier.ToString())))
             {
                 modifier++;
             }
 
-            newPath += (modifier == 0 ? String.Empty : modifier.ToString());
+            path += (modifier == 0 ? String.Empty : "_" + modifier.ToString());
 
-            return newPath;
+            return path;
         }
 
-        public void createNewDirectory(string newDirectoryPath)
+        private string validateFileName(string path)
         {
-            Directory.CreateDirectory(newDirectoryPath);    
+            int modifier = 0;
+            string pathWithoutExt = getFileFolderPath(path) + "\\" + Path.GetFileNameWithoutExtension(path);
+            string ext = Path.GetExtension(path);
+            while (File.Exists(pathWithoutExt + (modifier == 0 ? String.Empty : "_" + modifier.ToString()) + ext))
+            {
+                modifier++;
+            }
+
+            return pathWithoutExt + (modifier == 0 ? String.Empty : "_" + modifier.ToString()) + ext;
         }
 
         private List<DateTime> getDates(string filePath)

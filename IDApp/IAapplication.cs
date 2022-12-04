@@ -22,7 +22,7 @@ namespace ImageDater.IDApp
             string path = getPath();
             List<FileData> files = isDirectoryModeSelected() ? getFilesFromDirectory(path) : getFileDataFromFile(path);
             string modifiedFolderPath = createModifiedFolder(path);
-
+            renamingFiles(files, modifiedFolderPath);
         }
 
         private void getMode()
@@ -76,7 +76,17 @@ namespace ImageDater.IDApp
             _lineWriter.creatingNewDirectory(newPath);
             _fileManager.createNewDirectory(newPath);  
 
-            return newPath;
+            return newPath + "\\";
+        }
+
+        private void renamingFiles(List<FileData> files, string newFolderPath)
+        {
+            files.ForEach(f =>
+            {
+                string newPath = _fileManager.getNewPath(f, newFolderPath);
+                _lineWriter.renameFile(f.Path, newPath);
+                _fileManager.renameFileInNewPath(f.Path, newPath);
+            });
         }
 
         private bool isDirectoryModeSelected()

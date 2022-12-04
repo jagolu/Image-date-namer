@@ -36,7 +36,8 @@
             _messages.Add(MessageInfoType.WRONG_PATH, "Wrong path");
             _messages.Add(MessageInfoType.PATH_TRY_AGAIN_DIRECTORY, "Enter a path to a valid directory");
             _messages.Add(MessageInfoType.PATH_TRY_AGAIN_FILE, "Enter a path to a valid file");
-            _messages.Add(MessageInfoType.CREATING_NEW_PATH, "Copying new files in ");
+            _messages.Add(MessageInfoType.CREATING_NEW_PATH, "Copying new files in $1");
+            _messages.Add(MessageInfoType.COPYING_FILE, "Renaming $1 \nin $2");
         }
     }
 }

@@ -11,6 +11,7 @@
         WRONG_PATH = 7,
         PATH_TRY_AGAIN_DIRECTORY = 8,
         PATH_TRY_AGAIN_FILE = 9,
-        CREATING_NEW_PATH = 10
+        CREATING_NEW_PATH = 10,
+        COPYING_FILE = 11
     }
 }

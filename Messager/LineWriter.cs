@@ -42,7 +42,30 @@
 
         public void creatingNewDirectory(string directoryPath)
         {
-            Console.WriteLine(MessageDictionary.Instance.getMessage(MessageInfoType.CREATING_NEW_PATH) + directoryPath);
+            Console.WriteLine(
+                addParametersToMessage(MessageDictionary.Instance.getMessage(MessageInfoType.CREATING_NEW_PATH),
+                new List<string> { directoryPath })
+            );
+        }
+
+        public void renameFile(string oldFile, string newFile)
+        {
+            Console.WriteLine(
+                addParametersToMessage(MessageDictionary.Instance.getMessage(MessageInfoType.COPYING_FILE),
+                new List<string> { oldFile, newFile })
+            );
+        } 
+
+        private string addParametersToMessage(string msg, List<string> parameters)
+        {
+            int index = 1;
+            parameters.ForEach(p =>
+            {
+                msg = msg.Replace($"${index}", p);
+                index++;
+            });
+
+            return msg;
         }
     }
 }
